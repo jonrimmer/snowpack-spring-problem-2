@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { animated, useSpring } from 'react-spring';
 
 interface AppProps {}
 
@@ -13,8 +14,18 @@ function App({}: AppProps) {
     return () => clearTimeout(timer);
   }, [count, setCount]);
   // Return the App component.
+
+  const props = useSpring({
+    from: {
+      height: '1px',
+    },
+    to: {
+      height: '100px',
+    },
+  });
+
   return (
-    <div className="App">
+    <animated.div className="App" style={{ height: props.height }}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -34,7 +45,7 @@ function App({}: AppProps) {
           </a>
         </p>
       </header>
-    </div>
+    </animated.div>
   );
 }
 
